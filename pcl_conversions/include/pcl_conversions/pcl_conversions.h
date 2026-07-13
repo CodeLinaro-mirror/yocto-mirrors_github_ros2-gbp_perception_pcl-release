@@ -41,8 +41,8 @@
 #include <vector>
 
 #include <rclcpp/rclcpp.hpp>
-#include <message_filters/message_event.hpp>
-#include <message_filters/message_traits.hpp>
+#include <message_filters/message_event.h>
+#include <message_filters/message_traits.h>
 
 #include <pcl/conversions.h>
 
@@ -89,7 +89,7 @@ namespace pcl_conversions {
   inline
   void toPCL(const rclcpp::Time &stamp, std::uint64_t &pcl_stamp)
   {
-    pcl_stamp = static_cast<std::uint64_t>(std::round(stamp.nanoseconds() / 1000.0));  // Convert from ns to us
+    pcl_stamp = static_cast<std::uint64_t>(stamp.nanoseconds()) / 1000ull;  // Convert from ns to us
   }
 
   inline

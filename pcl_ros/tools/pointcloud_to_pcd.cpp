@@ -136,20 +136,10 @@ public:
     this->get_parameter("binary", binary_);
     this->get_parameter("compressed", compressed_);
 
-    // Enable QoS reconfigurability via parameters
-    rclcpp::SubscriptionOptions sub_options;
-    sub_options.qos_overriding_options =
-      rclcpp::QosOverridingOptions {{
-      rclcpp::QosPolicyKind::History,
-      rclcpp::QosPolicyKind::Reliability,
-      rclcpp::QosPolicyKind::Durability,
-      rclcpp::QosPolicyKind::Depth
-    }};
-
     auto sensor_qos = rclcpp::SensorDataQoS();
     sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
       "input", sensor_qos,
-      std::bind(&PointCloudToPCD::cloud_cb, this, std::placeholders::_1), sub_options);
+      std::bind(&PointCloudToPCD::cloud_cb, this, std::placeholders::_1));
   }
 };
 }  // namespace pcl_ros
